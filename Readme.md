@@ -1,6 +1,6 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
-* Студент: [Алексей Жданов](https://up.htmlacademy.ru/javascript/13/user/580203).
+* Студент: [Алексей Комков].
 * Наставник: `отсутствует`.
 
 ---
