@@ -60,7 +60,9 @@
 }
 
 body {
+  position: relative;
   max-width: 1200px;
+  width: 1200px;
   margin: 0 auto;
 
   color: #353535;
