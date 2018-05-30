@@ -1,69 +1,75 @@
-var form = document.querySelector('.ad-form');
+'use strict';
 
-//Синхронизируем поля чекина и чекаута
-var checkInBox = form.querySelector('#timein');
-var checkOutBox = form.querySelector('#timeout');
+(function () {
 
-checkInBox.addEventListener('change', function () {
-    checkOutBox.value = checkInBox.value;
-});
+    var form = document.querySelector('.ad-form');
 
-checkOutBox.addEventListener('change', function () {
-    checkInBox.value = checkOutBox.value;
-});
+    //Синхронизируем поля чекина и чекаута
+    var checkInBox = form.querySelector('#timein');
+    var checkOutBox = form.querySelector('#timeout');
 
-//синхронихируем поля типа жилья и min цены
-var typeOfHouse = form.querySelector('#type');
-var minPrice = form.querySelector('#price');
+    checkInBox.addEventListener('change', function () {
+        checkOutBox.value = checkInBox.value;
+    });
 
-typeOfHouse.addEventListener('change', function () {
-    switch (typeOfHouse.value) {
-        case 'flat':
-            minPrice.setAttribute('min', '0');
-            break;
-        case 'bungalo':
-            minPrice.setAttribute('min', '1000');
-            break;
-        case 'house':
-            minPrice.setAttribute('min', '5000');
-            break;
-        case 'palace':
-            minPrice.setAttribute('min', '10000');
-            break;
-    };
-});
+    checkOutBox.addEventListener('change', function () {
+        checkInBox.value = checkOutBox.value;
+    });
 
-//сихронизируем варианты
-var roomNumber = form.querySelector('#room_number');
-var capacitySel = form.querySelector('#capacity');
+    //синхронихируем поля типа жилья и min цены
+    var typeOfHouse = form.querySelector('#type');
+    var minPrice = form.querySelector('#price');
 
-var oneGuest = capacitySel.removeChild(capacitySel.querySelector('[value="1"]'));
-var twoGuest = capacitySel.removeChild(capacitySel.querySelector('[value="2"]'));
-var treeGuest = capacitySel.removeChild(capacitySel.querySelector('[value="3"]'));
-var noGuest = capacitySel.removeChild(capacitySel.querySelector('[value="0"]'));
+    typeOfHouse.addEventListener('change', function () {
+        switch (typeOfHouse.value) {
+            case 'flat':
+                minPrice.setAttribute('min', '0');
+                break;
+            case 'bungalo':
+                minPrice.setAttribute('min', '1000');
+                break;
+            case 'house':
+                minPrice.setAttribute('min', '5000');
+                break;
+            case 'palace':
+                minPrice.setAttribute('min', '10000');
+                break;
+        };
+    });
 
-capacitySel.appendChild(oneGuest);
+    //сихронизируем варианты
+    var roomNumber = form.querySelector('#room_number');
+    var capacitySel = form.querySelector('#capacity');
 
-roomNumber.addEventListener('change', function () {
-    switch (roomNumber.value) {
-        case '1':
-            capacitySel.innerHTML='';
-            capacitySel.appendChild(oneGuest);
-            break;
-        case '2':
-            capacitySel.innerHTML='';
-            capacitySel.appendChild(oneGuest);
-            capacitySel.appendChild(twoGuest);
-            break;
-        case '3':
-            capacitySel.innerHTML='';
-            capacitySel.appendChild(oneGuest);
-            capacitySel.appendChild(twoGuest);
-            capacitySel.appendChild(treeGuest);
-            break;
-        case '100':
-            capacitySel.innerHTML='';
-            capacitySel.appendChild(noGuest);
-            break;
-    }
-});
+    var oneGuest = capacitySel.removeChild(capacitySel.querySelector('[value="1"]'));
+    var twoGuest = capacitySel.removeChild(capacitySel.querySelector('[value="2"]'));
+    var treeGuest = capacitySel.removeChild(capacitySel.querySelector('[value="3"]'));
+    var noGuest = capacitySel.removeChild(capacitySel.querySelector('[value="0"]'));
+
+    capacitySel.appendChild(oneGuest);
+
+    roomNumber.addEventListener('change', function () {
+        switch (roomNumber.value) {
+            case '1':
+                capacitySel.innerHTML='';
+                capacitySel.appendChild(oneGuest);
+                break;
+            case '2':
+                capacitySel.innerHTML='';
+                capacitySel.appendChild(oneGuest);
+                capacitySel.appendChild(twoGuest);
+                break;
+            case '3':
+                capacitySel.innerHTML='';
+                capacitySel.appendChild(oneGuest);
+                capacitySel.appendChild(twoGuest);
+                capacitySel.appendChild(treeGuest);
+                break;
+            case '100':
+                capacitySel.innerHTML='';
+                capacitySel.appendChild(noGuest);
+                break;
+        }
+    });
+
+})();
