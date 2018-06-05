@@ -5,16 +5,14 @@
     var form = document.querySelector('.ad-form');
 
     //Синхронизируем поля чекина и чекаута
-    var checkInBox = form.querySelector('#timein');
-    var checkOutBox = form.querySelector('#timeout');
+    var checkinTime = document.querySelector('#timein');
+    var checkoutTime = document.querySelector('#timeout');
 
-    checkInBox.addEventListener('change', function () {
-        checkOutBox.value = checkInBox.value;
-    });
+    var syncValues = function(element, value) {
+        element.value = value;
+    };
 
-    checkOutBox.addEventListener('change', function () {
-        checkInBox.value = checkOutBox.value;
-    });
+    window.synchronizeFields(checkinTime, checkoutTime, ['12', '13', '14'], ['12', '13', '14'], syncValues);
 
     //синхронихируем поля типа жилья и min цены
     var typeOfHouse = form.querySelector('#type');

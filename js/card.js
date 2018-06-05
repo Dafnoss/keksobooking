@@ -59,6 +59,8 @@
             };
         };
 
+        window.map.renderCards = function () {
+
         window.map.allPins.forEach(function (val, i, arr) {
             val.addEventListener('click', function (evt) {
                 var getPicPath = function () {
@@ -72,7 +74,7 @@
                 var picPath = getPicPath();
                 var pressedObject;
 
-                window.data.properties.forEach(function (val, i, arr) {
+                window.downloads.forEach(function (val, i, arr) {
                     if (val.author.avatar == picPath) {
                         pressedObject = val;
                     };
@@ -85,6 +87,8 @@
                 window.map.map.appendChild(mapCard);
             })
         });
+
+        };
 
     //закрытие карточки
         var mapCardBtnClose = mapCard.querySelector('.popup__close');

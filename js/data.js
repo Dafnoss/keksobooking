@@ -1,15 +1,27 @@
 'use strict';
 // Создаем массив из 8 ми обьектов
+//МОДУЛЬ НЕ ПОДКЛЮЧЕН
 
 (function () {
-    window.data = {
-        properties: function () {
+    window.data = {};
+    var mes = 'НИФИГА НЕ ЗАГРУЗИЛОСЬ';
+    var onLoad = function (pins) {
+        window.data.properties = pins;
+    };
 
+    var onError = function (status) {
+        console.log('НИФИГА НЕ ЗАГРУЗИЛОСЬ СЕРВЕТ ОТВЕТИЛ ' + status);
+    };
+
+    window.backend.download(onLoad, onError);
+        /*
+            function () {
             var properties = [];
             var avatars = [];
             for (var i = 0; i < 8; i++) {
                 avatars[i] = "img/avatars/user0" + (i + 1) + ".png"
-            };
+            }
+            ;
 
             var titles = ["Большая уютная квартира", "Маленькая неуютная квартира", "Огромный прекрасный дворец", "Маленький ужасный дворец", "Красивый гостевой домик", "Некрасивый негостеприимный домик", "Уютное бунгало далеко от моря", "Неуютное бунгало по колено в воде"];
 
@@ -64,9 +76,10 @@
 
             for (var i = 0; i < 8; i++) {
                 properties[i] = createProperty();
-            };
+            }
+            ;
 
             return properties;
         }()
-    };
+        */
 })();
