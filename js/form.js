@@ -70,4 +70,35 @@
         }
     });
 
+//Мутим кнопку сброса формы
+    var clearBtn = form.querySelector('.ad-form__reset');
+    clearBtn.addEventListener('click', function (evt) {
+        evt.preventDefault();
+        form.reset();
+    });
+
+//Отправляем форму
+    form.addEventListener('submit', function (evt) {
+        evt.preventDefault();
+
+        var onLoad = function (successMessage) {
+            console.log(successMessage);
+            form.reset();
+        };
+
+        var onError = function (errorMessage) {
+            var node = document.createElement('div');
+            node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red';
+            node.style.left = 0;
+            node.style.top = 0;
+            node.style.fontSize = '30px';
+
+            node.textContent = errorMessage;
+
+            document.form.insertAdjacentElement('afterbegin', node);
+        };
+
+        window.backend.upload(new FormData(form), onLoad, onError);
+    })
+
 })();

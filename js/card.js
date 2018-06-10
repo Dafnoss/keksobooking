@@ -13,6 +13,7 @@
         var mapCardFeatures = mapCard.querySelector('.popup__features');
         var mapCardDescription = mapCard.querySelector('.popup__description');
         var mapCardAvatar = mapCard.querySelector('.popup__avatar');
+        window.card = {};
 
 
         function fillTheCard(object) {
@@ -52,7 +53,7 @@
 
 
     //активация маппина и открытие карточки
-        var removeActiveElement = function () {
+        window.card.removeActiveElement = function () {
             var activeElement = document.querySelector('.map__pin--active');
             if (activeElement) {
                 activeElement.classList.remove('map__pin--active');
@@ -64,10 +65,11 @@
         window.map.allPins.forEach(function (val, i, arr) {
             val.addEventListener('click', function (evt) {
                 var getPicPath = function () {
+                    console.dir(evt.target.parentNode.nameText);
                     if (evt.target.tagName == 'IMG') {
-                        var picPath = evt.target.attributes[0].nodeValue;
+                        var picPath = evt.target.parentNode.nameText;
                     } else {
-                        var picPath = evt.target.firstElementChild.attributes[0].nodeValue;
+                        var picPath = evt.target.nameText;
                     }
                     return picPath;
                 };
@@ -75,12 +77,12 @@
                 var pressedObject;
 
                 window.downloads.forEach(function (val, i, arr) {
-                    if (val.author.avatar == picPath) {
+                    if (val.offer.title == picPath) {
                         pressedObject = val;
                     };
                 });
 
-                removeActiveElement();
+                window.card.removeActiveElement();
 
                 this.classList.add('map__pin--active');
                 fillTheCard(pressedObject);
@@ -91,10 +93,11 @@
         };
 
     //закрытие карточки
+
         var mapCardBtnClose = mapCard.querySelector('.popup__close');
         mapCardBtnClose.addEventListener('click', function () {
             window.map.map.removeChild(mapCard);
-            removeActiveElement();
+            window.card.removeActiveElement();
 
         });
 })();
