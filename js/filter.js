@@ -1,8 +1,15 @@
+'use strict';
+
 (function () {
     var filterForm = document.querySelector('.map__filters');
 
+    var prevTimer;
 
     filterForm.addEventListener('change', function () {
+
+        window.clearTimeout(prevTimer);
+
+        prevTimer = window.setTimeout( function () {
 
         var wipePins = function () {
             var container = document.querySelector('.map__pins');
@@ -105,6 +112,8 @@
         if (popup) {
             popup.parentNode.removeChild(popup);
         }
+
+    }, 300);
 
     });
 

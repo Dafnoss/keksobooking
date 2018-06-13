@@ -75,6 +75,20 @@
     clearBtn.addEventListener('click', function (evt) {
         evt.preventDefault();
         form.reset();
+
+        //резет фотографий
+        document.querySelector('.ad-form-header__preview img').src = 'img/muffin-grey.svg';
+        var photoContainer = document.querySelector('.ad-form__photo-container');
+        var photos = document.querySelectorAll('.ad-form__photo');
+        var pasteNode = document.querySelector('.ad-form__photo').cloneNode();
+
+        var photosArr = Array.from(photos);
+        photosArr.forEach(function (val, i, arr) {
+            photoContainer.removeChild(val);
+        });
+
+        photoContainer.appendChild(pasteNode);
+
     });
 
 //Отправляем форму

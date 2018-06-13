@@ -28,7 +28,7 @@
             var pin = mapButton.cloneNode(true);
             var pinX = properties[j].location.x;
             var pinY = properties[j].location.y;
-            pin.style.left = pinX + 'px';
+            pin.style.left = pinX -100 + 'px';
             pin.style.top = pinY + 'px';
             pin.nameText = properties[j].offer.title;
 
