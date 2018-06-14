@@ -7,8 +7,9 @@
 
     var inputFile = document.querySelector('#avatar');
     var avatarPicture = document.querySelector('.ad-form-header__preview img');
+    var avatarDrop = document.querySelector('.ad-form-header__drop-zone');
 
-    inputFile.addEventListener('change', function (evt) {
+    var addPhoto = function (evt, avatarfile) {
         var file = inputFile.files[0];
         var fileName = file.name.toLowerCase();
 
@@ -25,7 +26,9 @@
             reader.readAsDataURL(file);
         }
 
-    });
+    }
+
+    inputFile.addEventListener('change', addPhoto);
 
     // нижние фото
 
@@ -70,8 +73,41 @@
         }
 
 
-    })
+    });
 
+    //драг энд роп механизм в файл аватарки
+
+    avatarDrop.addEventListener('drop', function (evt) {
+        evt.preventDefault();
+        var dropFile = evt.dataTransfer.files;
+        inputFile.files = dropFile;
+
+    });
+
+    var photosDrop = document.querySelector('.ad-form__drop-zone');
+
+    photosDrop.addEventListener('drop', function (evt) {
+        evt.preventDefault();
+        var dropPhoto = evt.dataTransfer.files;
+        inputPhoto.files = dropPhoto;
+        console.dir(inputPhoto.files);
+    });
+
+    // чтобы не открывался файл на весь жкран
+
+    inputFile.addEventListener('dragover', function (evt) {
+        evt.preventDefault();
+
+    });
+
+
+    window.addEventListener('drop', function (evt) {
+        evt.preventDefault();
+    });
+
+    window.addEventListener('dragover', function (evt) {
+        evt.preventDefault();
+    });
 
 
 })();
