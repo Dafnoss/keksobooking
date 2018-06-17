@@ -8,7 +8,7 @@
     var checkinTime = document.querySelector('#timein');
     var checkoutTime = document.querySelector('#timeout');
 
-    var syncValues = function(element, value) {
+    var syncValues = function (element, value) {
         element.value = value;
     };
 
@@ -32,7 +32,8 @@
             case 'palace':
                 minPrice.setAttribute('min', '10000');
                 break;
-        };
+        }
+        ;
     });
 
     //сихронизируем варианты
@@ -49,22 +50,22 @@
     roomNumber.addEventListener('change', function () {
         switch (roomNumber.value) {
             case '1':
-                capacitySel.innerHTML='';
+                capacitySel.innerHTML = '';
                 capacitySel.appendChild(oneGuest);
                 break;
             case '2':
-                capacitySel.innerHTML='';
+                capacitySel.innerHTML = '';
                 capacitySel.appendChild(oneGuest);
                 capacitySel.appendChild(twoGuest);
                 break;
             case '3':
-                capacitySel.innerHTML='';
+                capacitySel.innerHTML = '';
                 capacitySel.appendChild(oneGuest);
                 capacitySel.appendChild(twoGuest);
                 capacitySel.appendChild(treeGuest);
                 break;
             case '100':
-                capacitySel.innerHTML='';
+                capacitySel.innerHTML = '';
                 capacitySel.appendChild(noGuest);
                 break;
         }

@@ -3,7 +3,7 @@
 //аватрака
 
 (function () {
-    var FILE_TYPES = ['gif', 'jpeg', 'jpg', 'png' ];
+    var FILE_TYPES = ['gif', 'jpeg', 'jpg', 'png'];
 
     var inputFile = document.querySelector('#avatar');
     var avatarPicture = document.querySelector('.ad-form-header__preview img');
@@ -63,8 +63,10 @@
                 if (photos.children.length === 0) {
                     if (photos.parentNode) {
                         photos.parentNode.removeChild(photos)
-                    };
-                };
+                    }
+                    ;
+                }
+                ;
 
                 photoContainer.appendChild(newPhoto);
 
