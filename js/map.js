@@ -6,7 +6,7 @@
     window.map = {};
     window.map.allPins = [];
     window.map.map = document.querySelector(".map");
-    var onError = function (status) {
+    window.onError = function (status) {
         console.log('НИФИГА НЕ ЗАГРУЗИЛОСЬ СЕРВЕТ ОТВЕТИЛ ' + status);
     };
 
@@ -22,6 +22,7 @@
 
         window.createPins = function (properties) {
             window.map.allPins = [];
+            var MAXPINS = 5;
 
             for (var j = 0; j < properties.length; j++) {
                 // var pin = allPins[j];
@@ -40,9 +41,13 @@
             //вставляем на страницу
             var fragment = document.createDocumentFragment();
 
-            window.map.allPins.forEach(function (val, i, arr) {
+            /*window.map.allPins.forEach(function (val, i, arr) {
                 fragment.appendChild(val);
-            });
+            });*/
+
+            for (var i = 0; i < MAXPINS && window.map.allPins[i]; i++) {
+                fragment.appendChild(window.map.allPins[i]);
+            };
 
             var pinContainer = document.querySelector('.map__pins');
 
@@ -51,7 +56,9 @@
         };
 
         window.createPins(downloadedData);
+
+        document.querySelector('.map__pins').appendChild(window.map.pins);
     };
 
-    window.backend.download(window.onLoad, onError);
+    //window.backend.download(window.onLoad, window.onError);
 })();

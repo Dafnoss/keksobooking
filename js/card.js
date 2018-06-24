@@ -38,7 +38,7 @@
             element.classList.add('popup__feature');
             element.classList.add('popup__feature--' + val);
             mapCardNewFeatures.appendChild(element);
-        })
+        });
         mapCardFeatures.innerHTML = '';
         mapCardFeatures.appendChild(mapCardNewFeatures);
         mapCardDescription.textContent = object.offer.description;
@@ -75,8 +75,7 @@
         var activeElement = document.querySelector('.map__pin--active');
         if (activeElement) {
             activeElement.classList.remove('map__pin--active');
-        }
-        ;
+        };
     };
 
     window.map.renderCards = function () {
@@ -98,8 +97,7 @@
                 window.downloads.forEach(function (val, i, arr) {
                     if (val.offer.title == picPath) {
                         pressedObject = val;
-                    }
-                    ;
+                    };
                 });
 
                 window.card.removeActiveElement();
@@ -119,7 +117,15 @@
     mapCardBtnClose.addEventListener('click', function () {
         window.map.map.removeChild(mapCard);
         window.card.removeActiveElement();
+    });
 
+    var ENTER = 27;
+
+    window.addEventListener("keydown", function (evt) {
+        if (evt.keyCode === ENTER ) {
+        window.map.map.removeChild(mapCard);
+        window.card.removeActiveElement();
+        }
     });
 
 })();

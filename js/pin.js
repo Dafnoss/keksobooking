@@ -6,6 +6,8 @@
     var container = document.querySelector('.map__pins');
     var address = document.querySelector('#address');
     var cords = {};
+    var map = document.querySelector('.map');
+    var load = 0;
 
     mainPin.addEventListener('mousedown', function (evt) {
         var status = 1;//adForm.classList.contains('ad-form--disabled')
@@ -44,23 +46,44 @@
                 (evtMove.pageY < 100) ? mainPin.style.top = '100px' :
                 (evtMove.pageY > 600) ? mainPin.style.top = '600px' :
                 mainPin.style.top = evtMove.pageY - shift.y + 'px';
-                mainPin.style.left = evtMove.clientX - shift.x + 'px';
+
+                mainPin.style.left = evtMove.pageX - shift.x + 'px';
+
                 cords = {
-                    x: evtMove.clientX - shift.x,
+                    x: evtMove.pageX - shift.x,
                     y: evtMove.pageY - shift.y
                 };
 
             };
 
-            document.addEventListener('mousemove', moveFunction);
+            map.addEventListener('mousemove', moveFunction);
 
-            mainPin.addEventListener('mouseup', function () {
-                document.removeEventListener('mousemove', moveFunction);
+            var upFunction = function () {
+                window.removePins = function () {
+                    var container = document.querySelector('.map__pins');
+
+                    var existPins = container.querySelectorAll('.map__pin:not(.map__pin--main)');
+                    var existPinsArr = Array.from(existPins);
+
+                    existPinsArr.forEach(function (it) {
+                        container.removeChild(it);
+                    });
+                };
+
+                window.removePins();
+
+                mainPin.addEventListener('mouseup', upFunction);
+
+                window.backend.download(window.onLoad, window.onError);
+                map.removeEventListener('mousemove', moveFunction);
                 window.map.map.classList.remove('map--faded');
                 address.setAttribute('value', cords.x + ', ' + cords.y);
-                container.appendChild(window.map.pins);
+                //container.appendChild(window.map.pins);
                 adForm.classList.remove('ad-form--disabled');
-            });
+                mainPin.removeEventListener('mouseup' ,upFunction);
+            };
+
+            mainPin.addEventListener('mouseup', upFunction);
         };
 
     });

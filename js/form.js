@@ -73,8 +73,10 @@
 
 //Мутим кнопку сброса формы
     var clearBtn = form.querySelector('.ad-form__reset');
-    clearBtn.addEventListener('click', function (evt) {
+    var clearForm = function (evt) {
+        if (evt) {
         evt.preventDefault();
+    }
         form.reset();
 
         //резет фотографий
@@ -90,7 +92,9 @@
 
         photoContainer.appendChild(pasteNode);
 
-    });
+    };
+
+    clearBtn.addEventListener('click', clearForm);
 
 //Отправляем форму
     form.addEventListener('submit', function (evt) {
@@ -98,7 +102,11 @@
 
         var onLoad = function (successMessage) {
             console.log(successMessage);
-            form.reset();
+            clearForm();
+            form.classList.add('ad-form--disabled');
+            window.map.map.classList.add('map--faded');
+            window.removePins();
+            document.querySelector('.map__pin--main').setAttribute('style', 'left: 570px; top: 375px');
         };
 
         var onError = function (errorMessage) {
