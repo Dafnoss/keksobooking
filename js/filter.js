@@ -41,6 +41,11 @@
                 var newData;
                 var dataCopy = data.slice(0);
 
+                dataCopy.map(function (value) {
+
+                });
+
+
                 newData = dataCopy.filter(function (it, i, array) {
                     switch (housingType) {
                         case 'any':

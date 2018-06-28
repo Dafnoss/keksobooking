@@ -102,11 +102,16 @@
 
         var onLoad = function (successMessage) {
             console.log(successMessage);
+
+            //сбросс вселенной
+            var resetEverything = function () {
             clearForm();
+            window.loadStatus = 0;
             form.classList.add('ad-form--disabled');
             window.map.map.classList.add('map--faded');
             window.removePins();
             document.querySelector('.map__pin--main').setAttribute('style', 'left: 570px; top: 375px');
+            }();
         };
 
         var onError = function (errorMessage) {
@@ -121,7 +126,7 @@
             document.form.insertAdjacentElement('afterbegin', node);
         };
 
-        window.backend.upload(new FormData(form), onLoad, onError);
+        window.createXhrRequest('POST', 'https://js.dump.academy/keksobooking', onLoad, onError, new FormData(form));
     })
 
 })();

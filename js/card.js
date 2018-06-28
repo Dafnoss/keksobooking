@@ -16,24 +16,26 @@
 
     window.card = {};
 
+    var PROPS = {
+        'flat': 'Квартира',
+        'bungalo': 'Бунгало',
+        'house': 'Дом'
+    };
 
     function fillTheCard(object) {
         mapCardTitle.textContent = object.offer.title;
         mapCardAddress.textContent = object.offer.address;
         mapCardPrice.innerHTML = object.offer.price + '&#8381' + '/ночь';
-        mapCardType.textContent = 'Квартира'
-        if (object.offer.type == 'bungalo') {
-            mapCardType.textContent = 'Бунгало'
-        } else if (object.offer.type == 'house') {
-            mapCardType.textContent = 'Дом'
-        }
+
+        mapCardType.textContent = PROPS[object.offer.type] || 'Квартира' ;
+
         mapCardCapacity.textContent = object.offer.rooms + ' комнаты для ' + object.offer.guests + ' гостей';
         if (object.offer.rooms == 5) {
             mapCardCapacity.textContent = object.offer.rooms + ' комнат для ' + object.offer.guests + ' гостей';
         }
         mapCardTime.textContent = 'Заезд после ' + object.offer.checkin + ', выезд до ' + object.offer.checkout;
         var mapCardNewFeatures = document.createDocumentFragment();
-        object.offer.features.forEach(function (val, index, array) {
+        object.offer.features.forEach(function (val) {
             var element = document.createElement('li');
             element.classList.add('popup__feature');
             element.classList.add('popup__feature--' + val);
@@ -49,7 +51,7 @@
         var mapCardPhoto = template.content.querySelector('.popup__photo');
         var photosFragment = document.createDocumentFragment();
 
-        object.offer.photos.forEach(function (it, i, array) {
+        object.offer.photos.forEach(function (it) {
             var mapPhotoClone = mapCardPhoto.cloneNode();
             mapPhotoClone.setAttribute('src', it)
             photosFragment.appendChild(mapPhotoClone);
@@ -80,21 +82,19 @@
 
     window.map.renderCards = function () {
 
-        window.map.allPins.forEach(function (val, i, arr) {
+        window.map.allPins.forEach(function (val) {
             val.addEventListener('click', function (evt) {
                 var getPicPath = function () {
                     console.dir(evt.target.parentNode.nameText);
                     if (evt.target.tagName == 'IMG') {
-                        var picPath = evt.target.parentNode.nameText;
-                    } else {
-                        var picPath = evt.target.nameText;
+                        return evt.target.parentNode.nameText;
                     }
-                    return picPath;
+                    return evt.target.nameText;
                 };
                 var picPath = getPicPath();
                 var pressedObject;
 
-                window.downloads.forEach(function (val, i, arr) {
+                window.downloads.forEach(function (val) {
                     if (val.offer.title == picPath) {
                         pressedObject = val;
                     };

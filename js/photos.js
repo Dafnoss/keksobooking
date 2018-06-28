@@ -25,8 +25,7 @@
             });
             reader.readAsDataURL(file);
         }
-
-    }
+    };
 
     inputFile.addEventListener('change', addPhoto);
 
@@ -58,15 +57,11 @@
                 var newPhoto = photos.cloneNode();
                 newPhoto.appendChild(imgPhoto);
 
-                var photos = document.querySelector('.ad-form__photo');
-
                 if (photos.children.length === 0) {
                     if (photos.parentNode) {
                         photos.parentNode.removeChild(photos)
-                    }
-                    ;
-                }
-                ;
+                    };
+                };
 
                 photoContainer.appendChild(newPhoto);
 
@@ -83,7 +78,7 @@
         evt.preventDefault();
         var dropFile = evt.dataTransfer.files;
         inputFile.files = dropFile;
-
+        avatarDrop.style.borderColor = "#c7c7c7";
     });
 
     var photosDrop = document.querySelector('.ad-form__drop-zone');
@@ -93,14 +88,25 @@
         var dropPhoto = evt.dataTransfer.files;
         inputPhoto.files = dropPhoto;
         console.dir(inputPhoto.files);
+        photosDrop.style.borderColor = "#c7c7c7";
     });
 
     // чтобы не открывался файл на весь жкран
 
-    inputFile.addEventListener('dragover', function (evt) {
-        evt.preventDefault();
+    var makeOrangeBorderOnDrug  = function (element) {
+        element.addEventListener('dragover', function (evt) {
+            evt.preventDefault();
+            element.style.borderColor = "orange";
+        });
 
-    });
+        element.addEventListener('dragleave', function (evt) {
+            evt.preventDefault();
+            element.style.borderColor = "#c7c7c7";
+        })
+    };
+
+    makeOrangeBorderOnDrug(avatarDrop);
+    makeOrangeBorderOnDrug(photosDrop);
 
 
     window.addEventListener('drop', function (evt) {
