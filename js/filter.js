@@ -96,27 +96,35 @@
                         continue;
                     }
 
-                    if (value.offer.features.includes("wifi") !== filterSettings['isWiFi'] && filterSettings['isWiFi'] !== false) {
+                    var funcCheck = function (inObject, inFilter) {
+                        return value.offer.features.includes(inObject) !== filterSettings[inFilter] && filterSettings[inFilter] !== false
+                    };
+
+                    if (funcCheck('wifi', 'isWiFi')) {
                         continue;
                     }
 
-                    if (value.offer.features.includes("dishwasher") !== filterSettings['isDishWasher'] && filterSettings['isDishWasher'] !== false) {
+                    if (funcCheck('dishwasher', 'isDishWasher')) {
                         continue;
                     }
 
-                    if (value.offer.features.includes("parking") !== filterSettings['isParking'] && filterSettings['isParking'] !== false) {
+                    if (funcCheck('parking', 'isParking')) {
                         continue;
                     }
 
-                    if (value.offer.features.includes("washer") !== filterSettings['isWasher'] && filterSettings['isWasher'] !== false) {
+                    if (funcCheck('washer', 'isWasher')) {
                         continue;
                     }
 
-                    if (value.offer.features.includes("elevator") !== filterSettings['isElevator'] && filterSettings['isElevator'] !== false) {
+                    if (funcCheck('elevator', 'isElevator')) {
                         continue;
                     }
 
-                    if (value.offer.features.includes("conditioner") !== filterSettings['isConditioner'] && filterSettings['isConditioner'] !== false) {
+                    if (funcCheck('elevator', 'isWasher')) {
+                        continue;
+                    }
+
+                    if (funcCheck('conditioner', 'isConditioner')) {
                         continue;
                     }
 
