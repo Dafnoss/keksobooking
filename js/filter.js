@@ -30,13 +30,14 @@
                 'housingPrice': document.querySelector('#housing-price').value,
                 'housingRooms': document.querySelector('#housing-rooms').value,
                 'housingGuests': document.querySelector('#housing-guests').value,
-                'housingFeatures': document.querySelector('#housing-features'),
-                'isWiFi': housingFeatures.querySelector('#filter-wifi').checked,
-                'isDishWasher': housingFeatures.querySelector('#filter-dishwasher').checked,
-                'isParking': housingFeatures.querySelector('#filter-parking').checked,
-                'isWasher': housingFeatures.querySelector('#filter-washer').checked,
-                'isElevator': housingFeatures.querySelector('#filter-elevator').checked,
-                'isConditioner': housingFeatures.querySelector('#filter-conditioner').checked
+                'features': {
+                    'isWiFi': housingFeatures.querySelector('#filter-wifi').checked,
+                    'isDishWasher': housingFeatures.querySelector('#filter-dishwasher').checked,
+                    'isParking': housingFeatures.querySelector('#filter-parking').checked,
+                    'isWasher': housingFeatures.querySelector('#filter-washer').checked,
+                    'isElevator': housingFeatures.querySelector('#filter-elevator').checked,
+                    'isConditioner': housingFeatures.querySelector('#filter-conditioner').checked
+                }
             };
 
             console.dir(filterSettings);
@@ -71,10 +72,20 @@
                         value.offer.guests = 'any';
                     }
 
+                    value.offer.rooms = value.offer.rooms.toString();
+                    value.offer.guests = value.offer.guests.toString();
+
+
+
                 });
 
                 var funcCheck = function (inObject, inFilter) {
-                    return value.offer.features.includes(inObject) !== filterSettings[inFilter] && filterSettings[inFilter] !== false
+                    return value.offer.features.includes(inObject) !== filterSettings.features[inFilter] && filterSettings.features[inFilter] !== false
+                };
+
+                var funcSelect = function (inObject, inFilter) {
+                    return value.offer[inObject] !== filterSettings[inFilter] && filterSettings[inFilter] !== 'any'
+
                 };
 
                 for (var j = 0; newNewData.length <= MAX; j++) {
@@ -84,50 +95,45 @@
                         break;
                     }
 
-                    if (value.offer.type !== filterSettings['housingType'] && filterSettings['housingType'] !== 'any') {
+                    if (funcSelect('type','housingType')) {
                         continue;
                     }
 
-                    if (value.offer.priceRange !== filterSettings['housingPrice'] && filterSettings['housingPrice'] !== 'any') {
+                    if (funcSelect('priceRange','housingPrice')) {
                         continue;
                     }
 
-                    if (value.offer.rooms.toString() !== filterSettings['housingRooms'] && filterSettings['housingRooms'] !== 'any') {
+                    if (funcSelect('rooms','housingRooms')) {
                         continue;
                     }
 
-                    if (value.offer.guests.toString() !== filterSettings['housingGuests'] && filterSettings['housingGuests'] !== 'any') {
+                    if (funcSelect('guests','housingGuests')) {
                         continue;
                     }
 
+                    var isCheck = 0;
 
-                    if (funcCheck('wifi', 'isWiFi')) {
+                    var mapForChecks = {
+                        'wifi': 'isWiFi',
+                        'dishwasher': 'isDishWasher',
+                        'parking': 'isParking',
+                        'washer': 'isWasher',
+                        'elevator': 'isElevator',
+                        'conditioner': 'isConditioner'
+                    };
+
+                    var typeForChecks = ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"];
+
+                    for (var l = 0; l < 6; l++ ) {
+                        if (funcCheck(typeForChecks[l], mapForChecks[typeForChecks[l]])) {
+                            isCheck = 1;
+                        }
+                    };
+
+                    if (isCheck) {
                         continue;
                     }
 
-                    if (funcCheck('dishwasher', 'isDishWasher')) {
-                        continue;
-                    }
-
-                    if (funcCheck('parking', 'isParking')) {
-                        continue;
-                    }
-
-                    if (funcCheck('washer', 'isWasher')) {
-                        continue;
-                    }
-
-                    if (funcCheck('elevator', 'isElevator')) {
-                        continue;
-                    }
-
-                    if (funcCheck('elevator', 'isWasher')) {
-                        continue;
-                    }
-
-                    if (funcCheck('conditioner', 'isConditioner')) {
-                        continue;
-                    }
 
                     newNewData.push(value);
                 };
