@@ -124,7 +124,7 @@
 
                     var typeForChecks = ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"];
 
-                    for (var l = 0; l < 6; l++ ) {
+                    for (var l = 0; l < typeForChecks.length; l++ ) {
                         if (funcCheck(typeForChecks[l], mapForChecks[typeForChecks[l]])) {
                             isCheck = 1;
                         }
