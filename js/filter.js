@@ -22,111 +22,107 @@
             };
 
             var container = document.querySelector('.map__pins');
-            var housingType = document.querySelector('#housing-type').value;
-            var housingPrice = document.querySelector('#housing-price').value;
-            var housingRooms = document.querySelector('#housing-rooms').value;
-            var housingGuests = document.querySelector('#housing-guests').value;
             var housingFeatures = document.querySelector('#housing-features');
-            var isWiFi = housingFeatures.querySelector('#filter-wifi').checked;
-            var isDishWasher = housingFeatures.querySelector('#filter-dishwasher').checked;
-            var isParking = housingFeatures.querySelector('#filter-parking').checked;
-            var isWasher = housingFeatures.querySelector('#filter-washer').checked;
-            var isElevator = housingFeatures.querySelector('#filter-elevator').checked;
-            var isConditioner = housingFeatures.querySelector('#filter-conditioner').checked;
+
+            var filterSettings = {
+                'housingType': document.querySelector('#housing-type').value,
+                'housingPrice': document.querySelector('#housing-price').value,
+                'housingRooms': document.querySelector('#housing-rooms').value,
+                'housingGuests': document.querySelector('#housing-guests').value,
+                'housingFeatures': document.querySelector('#housing-features'),
+                'isWiFi': housingFeatures.querySelector('#filter-wifi').checked,
+                'isDishWasher': housingFeatures.querySelector('#filter-dishwasher').checked,
+                'isParking': housingFeatures.querySelector('#filter-parking').checked,
+                'isWasher': housingFeatures.querySelector('#filter-washer').checked,
+                'isElevator': housingFeatures.querySelector('#filter-elevator').checked,
+                'isConditioner': housingFeatures.querySelector('#filter-conditioner').checked
+            };
+
+            console.dir(filterSettings);
 
 
             var data = window.downloads;
 
             var newData = (function () {
-                var newData;
-                var dataCopy = data.slice(0);
 
+                var dataCopy = data.slice(0);
+                var newNewData = [];
+
+                // маприруем ценник
                 dataCopy.map(function (value) {
+                    value.offer.priceRange = 'any';
+
+                    if (value.offer.price <= 10000) {
+                        value.offer.priceRange = 'low';
+                    }
+                    if (value.offer.price > 10000 && value.offer.price < 50000) {
+                        value.offer.priceRange = 'middle';
+                    }
+                    if (50000 <= value.offer.price) {
+                        value.offer.priceRange = 'high'
+                    }
+
+                    if (value.offer.rooms > 3) {
+                        value.offer.rooms = 'any';
+                    }
+
+                    if (value.offer.guests > 2) {
+                        value.offer.guests = 'any';
+                    }
 
                 });
 
+                for (var j = 0; newNewData.length <= 5; j++) {
+                    var value = dataCopy[j];
 
-                newData = dataCopy.filter(function (it, i, array) {
-                    switch (housingType) {
-                        case 'any':
-                            return true;
-                        case it.offer.type:
-                            return it.offer.type;
+                    if (!value) {
+                        break;
                     }
-                })
-                    .filter(function (it) {
-                        switch (housingPrice) {
-                            case 'any' :
-                                return true;
-                            case 'low' :
-                                return it.offer.price <= 10000;
-                            case 'middle':
-                                return (it.offer.price > 10000 && it.offer.price < 50000);
-                            case 'high':
-                                return 50000 <= it.offer.price;
-                        }
-                    })
-                    .filter(function (it) {
-                        switch (housingRooms) {
-                            case 'any' :
-                                return true;
-                            case '1':
-                                return it.offer.rooms === 1;
-                            case '2':
-                                return it.offer.rooms === 2;
-                            case '3':
-                                return it.offer.rooms === 3;
-                        }
 
-                    })
-                    .filter(function (it) {
-                        switch (housingGuests) {
-                            case 'any' :
-                                return true;
-                            case '1':
-                                return it.offer.guests === 1;
-                            case '2':
-                                return it.offer.guests === 2;
-                        }
-                    })
-                    .filter(function (it) {
-                        if (isWiFi) {
-                            return it.offer.features.includes("wifi")
-                        }
-                        return true;
-                    })
-                    .filter(function (it) {
-                        if (isDishWasher) {
-                            return it.offer.features.includes("dishwasher")
-                        }
-                        return true;
-                    })
-                    .filter(function (it) {
-                        if (isParking) {
-                            return it.offer.features.includes("parking")
-                        }
-                        return true;
-                    })
-                    .filter(function (it) {
-                        if (isWasher) {
-                            return it.offer.features.includes("washer")
-                        }
-                        return true;
-                    })
-                    .filter(function (it) {
-                        if (isElevator) {
-                            return it.offer.features.includes("elevator")
-                        }
-                        return true;
-                    })
-                    .filter(function (it) {
-                        if (isConditioner) {
-                            return it.offer.features.includes("conditioner")
-                        }
-                        return true;
-                    });
+                    if (value.offer.type !== filterSettings['housingType'] && filterSettings['housingType'] !== 'any') {
+                        continue;
+                    }
 
-                return newData
+                    if (value.offer.priceRange !== filterSettings['housingPrice'] && filterSettings['housingPrice'] !== 'any') {
+                        continue;
+                    }
+
+                    if (value.offer.rooms.toString() !== filterSettings['housingRooms'] && filterSettings['housingRooms'] !== 'any') {
+                        continue;
+                    }
+
+                    if (value.offer.guests.toString() !== filterSettings['housingGuests'] && filterSettings['housingGuests'] !== 'any') {
+                        continue;
+                    }
+
+                    if (value.offer.features.includes("wifi") !== filterSettings['isWiFi'] && filterSettings['isWiFi'] !== false) {
+                        continue;
+                    }
+
+                    if (value.offer.features.includes("dishwasher") !== filterSettings['isDishWasher'] && filterSettings['isDishWasher'] !== false) {
+                        continue;
+                    }
+
+                    if (value.offer.features.includes("parking") !== filterSettings['isParking'] && filterSettings['isParking'] !== false) {
+                        continue;
+                    }
+
+                    if (value.offer.features.includes("washer") !== filterSettings['isWasher'] && filterSettings['isWasher'] !== false) {
+                        continue;
+                    }
+
+                    if (value.offer.features.includes("elevator") !== filterSettings['isElevator'] && filterSettings['isElevator'] !== false) {
+                        continue;
+                    }
+
+                    if (value.offer.features.includes("conditioner") !== filterSettings['isConditioner'] && filterSettings['isConditioner'] !== false) {
+                        continue;
+                    }
+
+                    newNewData.push(value);
+                };
+
+                return newNewData
             })();
 
             console.dir(newData);
