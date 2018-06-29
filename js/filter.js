@@ -23,6 +23,7 @@
 
             var container = document.querySelector('.map__pins');
             var housingFeatures = document.querySelector('#housing-features');
+            var MAX = 5;
 
             var filterSettings = {
                 'housingType': document.querySelector('#housing-type').value,
@@ -72,7 +73,7 @@
 
                 });
 
-                for (var j = 0; newNewData.length <= 5; j++) {
+                for (var j = 0; newNewData.length <= MAX; j++) {
                     var value = dataCopy[j];
 
                     if (!value) {

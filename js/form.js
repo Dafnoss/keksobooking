@@ -32,8 +32,7 @@
             case 'palace':
                 minPrice.setAttribute('min', '10000');
                 break;
-        }
-        ;
+        };
     });
 
     //сихронизируем варианты
@@ -71,6 +70,8 @@
         }
     });
 
+
+
 //Мутим кнопку сброса формы
     var clearBtn = form.querySelector('.ad-form__reset');
     var clearForm = function (evt) {
@@ -92,6 +93,12 @@
 
         photoContainer.appendChild(pasteNode);
 
+        window.loadStatus = 0;
+        form.classList.add('ad-form--disabled');
+        window.map.map.classList.add('map--faded');
+        window.removePins();
+        document.querySelector('.map__pin--main').setAttribute('style', 'left: 570px; top: 375px');
+
     };
 
     clearBtn.addEventListener('click', clearForm);
@@ -103,15 +110,9 @@
         var onLoad = function (successMessage) {
             console.log(successMessage);
 
-            //сбросс вселенной
-            var resetEverything = function () {
+
             clearForm();
-            window.loadStatus = 0;
-            form.classList.add('ad-form--disabled');
-            window.map.map.classList.add('map--faded');
-            window.removePins();
-            document.querySelector('.map__pin--main').setAttribute('style', 'left: 570px; top: 375px');
-            }();
+
         };
 
         var onError = function (errorMessage) {
