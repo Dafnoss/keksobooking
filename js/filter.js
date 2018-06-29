@@ -73,6 +73,10 @@
 
                 });
 
+                var funcCheck = function (inObject, inFilter) {
+                    return value.offer.features.includes(inObject) !== filterSettings[inFilter] && filterSettings[inFilter] !== false
+                };
+
                 for (var j = 0; newNewData.length <= MAX; j++) {
                     var value = dataCopy[j];
 
@@ -96,9 +100,6 @@
                         continue;
                     }
 
-                    var funcCheck = function (inObject, inFilter) {
-                        return value.offer.features.includes(inObject) !== filterSettings[inFilter] && filterSettings[inFilter] !== false
-                    };
 
                     if (funcCheck('wifi', 'isWiFi')) {
                         continue;
