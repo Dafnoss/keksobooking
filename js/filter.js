@@ -93,19 +93,7 @@
                         break;
                     }
 
-                    if (funcSelect('type')) {
-                        continue;
-                    }
-
-                    if (funcSelect('priceRange')) {
-                        continue;
-                    }
-
-                    if (funcSelect('rooms')) {
-                        continue;
-                    }
-
-                    if (funcSelect('guests')) {
+                    if (funcSelect('type') || funcSelect('priceRange') || funcSelect('rooms') || funcSelect('guests')) {
                         continue;
                     }
 
