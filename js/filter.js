@@ -79,8 +79,8 @@
 
                 });
 
-                var funcCheck = function (inObject, inFilter) {
-                    return value.offer.features.includes(inObject) !== filterSettings.features[inFilter] && filterSettings.features[inFilter] !== false
+                var funcCheck = function (inThing) {
+                    return value.offer.features.includes(inThing) !== filterSettings.features[inThing] && filterSettings.features[inThing] !== false
                 };
 
                 var funcSelect = function (inObject, inFilter) {
@@ -116,7 +116,7 @@
                     var typeForChecks = ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"];
 
                     for (var l = 0; l < typeForChecks.length; l++ ) {
-                        if (funcCheck(typeForChecks[l], typeForChecks[l])) {
+                        if (funcCheck(typeForChecks[l])) {
                             isCheck = 1;
                         }
                     };
