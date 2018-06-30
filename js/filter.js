@@ -31,12 +31,12 @@
                 'housingRooms': document.querySelector('#housing-rooms').value,
                 'housingGuests': document.querySelector('#housing-guests').value,
                 'features': {
-                    'isWiFi': housingFeatures.querySelector('#filter-wifi').checked,
-                    'isDishWasher': housingFeatures.querySelector('#filter-dishwasher').checked,
-                    'isParking': housingFeatures.querySelector('#filter-parking').checked,
-                    'isWasher': housingFeatures.querySelector('#filter-washer').checked,
-                    'isElevator': housingFeatures.querySelector('#filter-elevator').checked,
-                    'isConditioner': housingFeatures.querySelector('#filter-conditioner').checked
+                    'wifi': housingFeatures.querySelector('#filter-wifi').checked,
+                    'dishwasher': housingFeatures.querySelector('#filter-dishwasher').checked,
+                    'parking': housingFeatures.querySelector('#filter-parking').checked,
+                    'washer': housingFeatures.querySelector('#filter-washer').checked,
+                    'elevator': housingFeatures.querySelector('#filter-elevator').checked,
+                    'conditioner': housingFeatures.querySelector('#filter-conditioner').checked
                 }
             };
 
@@ -113,19 +113,10 @@
 
                     var isCheck = 0;
 
-                    var mapForChecks = {
-                        'wifi': 'isWiFi',
-                        'dishwasher': 'isDishWasher',
-                        'parking': 'isParking',
-                        'washer': 'isWasher',
-                        'elevator': 'isElevator',
-                        'conditioner': 'isConditioner'
-                    };
-
                     var typeForChecks = ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"];
 
                     for (var l = 0; l < typeForChecks.length; l++ ) {
-                        if (funcCheck(typeForChecks[l], mapForChecks[typeForChecks[l]])) {
+                        if (funcCheck(typeForChecks[l], typeForChecks[l])) {
                             isCheck = 1;
                         }
                     };
@@ -133,8 +124,6 @@
                     if (isCheck) {
                         continue;
                     }
-
-
                     newNewData.push(value);
                 };
 
