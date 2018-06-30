@@ -26,10 +26,10 @@
             var MAX = 5;
 
             var filterSettings = {
-                'housingType': document.querySelector('#housing-type').value,
-                'housingPrice': document.querySelector('#housing-price').value,
-                'housingRooms': document.querySelector('#housing-rooms').value,
-                'housingGuests': document.querySelector('#housing-guests').value,
+                'type': document.querySelector('#housing-type').value,
+                'priceRange': document.querySelector('#housing-price').value,
+                'rooms': document.querySelector('#housing-rooms').value,
+                'guests': document.querySelector('#housing-guests').value,
                 'features': {
                     'wifi': housingFeatures.querySelector('#filter-wifi').checked,
                     'dishwasher': housingFeatures.querySelector('#filter-dishwasher').checked,
@@ -75,16 +75,14 @@
                     value.offer.rooms = value.offer.rooms.toString();
                     value.offer.guests = value.offer.guests.toString();
 
-
-
                 });
 
                 var funcCheck = function (inThing) {
                     return value.offer.features.includes(inThing) !== filterSettings.features[inThing] && filterSettings.features[inThing] !== false
                 };
 
-                var funcSelect = function (inObject, inFilter) {
-                    return value.offer[inObject] !== filterSettings[inFilter] && filterSettings[inFilter] !== 'any'
+                var funcSelect = function (inThing) {
+                    return value.offer[inThing] !== filterSettings[inThing] && filterSettings[inThing] !== 'any'
 
                 };
 
@@ -95,19 +93,19 @@
                         break;
                     }
 
-                    if (funcSelect('type','housingType')) {
+                    if (funcSelect('type')) {
                         continue;
                     }
 
-                    if (funcSelect('priceRange','housingPrice')) {
+                    if (funcSelect('priceRange')) {
                         continue;
                     }
 
-                    if (funcSelect('rooms','housingRooms')) {
+                    if (funcSelect('rooms')) {
                         continue;
                     }
 
-                    if (funcSelect('guests','housingGuests')) {
+                    if (funcSelect('guests')) {
                         continue;
                     }
 
@@ -115,7 +113,7 @@
 
                     var typeForChecks = ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"];
 
-                    for (var l = 0; l < typeForChecks.length; l++ ) {
+                    for (var l = 0; l < typeForChecks.length; l++) {
                         if (funcCheck(typeForChecks[l])) {
                             isCheck = 1;
                         }
